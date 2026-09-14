@@ -2,9 +2,9 @@
 
 [![Claude Code Skill](https://img.shields.io/badge/Claude_Code-Skill-blue?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=)](https://docs.anthropic.com/en/docs/claude-code)
 
-A Claude Code skill that detects and fixes 11 common AI-generated writing patterns that make text feel robotic and unnatural. Works with both Korean and English prose.
+A Claude Code skill that detects and fixes 11 common AI-generated writing patterns that make text feel robotic and unnatural. Works with both Korean and English prose. Includes a **Meeting Minutes Profile** for cleaning up STT/summarizer-generated 회의록.
 
-AI 글쓰기에서 자주 나타나는 11가지 '슬롭' 패턴을 감지하고 자연스러운 문장으로 교정하는 Claude Code 스킬입니다. 한국어와 영어 모두 지원합니다.
+AI 글쓰기에서 자주 나타나는 11가지 '슬롭' 패턴을 감지하고 자연스러운 문장으로 교정하는 Claude Code 스킬입니다. 한국어와 영어 모두 지원하며, STT·요약기가 생성한 회의록을 정리하는 **회의록 프로파일**도 포함합니다.
 
 ---
 
@@ -121,6 +121,42 @@ Imperative stop/start commands. Bossy and oversimplified.
 
 ---
 
+## Meeting Minutes Profile (회의록 프로파일)
+
+The 11 patterns rarely fire on meeting minutes - 개조식 bullets and tables are the correct register there. But STT transcripts run through a summarizer produce a different kind of slop: "Speaker N" labels, a reporting verb on every sentence, bold on every other phrase, and mis-heard proper nouns. The profile activates when the input looks like a 회의록, 회의 요약, 녹취 정리, or summarizer output.
+
+회의록에는 11가지 패턴이 거의 걸리지 않습니다. 대신 요약기 출력 특유의 슬롭이 있어서, 이를 다루는 7가지 규칙(MM-1 ~ MM-7)을 별도로 적용합니다.
+
+### What NOT to touch
+
+- **Quoted speech is evidence, not slop.** Patterns inside a participant's actual remark stay as-is. The 11 patterns apply to the writer's voice, not the speaker's.
+- **Bullets and tables are not Pattern 4.** 개조식 is the correct register for minutes.
+- **Numbers, IDs, `[확인]` markers, dates** are never paraphrased away.
+
+### The 7 rules
+
+| # | Rule | What it does |
+|---|------|--------------|
+| MM-1 | Speaker labels → organization/role | Replace "Speaker 1/3/5" with the organization or role (정책 측 / 플랫폼 측 / 회의 주재자 ...). Uncertain mappings get `[확인]`. Never invent a real name. |
+| MM-2 | Reporting-verb tail | Drop 강조했습니다 / 공유되었습니다 / ~하기로 했습니다 filler and convert to 개조식 (~함 / ~필요 / ~합의 / ~미결). |
+| MM-3 | Rationale boilerplate | Move "(근거: ...)" decisions into a table with a short 비고 column; drop the rationale if the body already states it. |
+| MM-4 | Emphasis inflation | Remove body bold entirely; promote bold-only pseudo-headers to `###`. Keep 「」 for defined terms. |
+| MM-5 | STT mis-recognition | Do not silently "correct" mis-heard proper nouns (사번제→사본, 하이밸류→하이브리드 ...). Mark with `[확인]` and collect in a 「용어 · 원문 확인 필요」 table. |
+| MM-6 | Fixed skeleton | Normalize to a fixed order: 회의 성격 → 정리 기준 → 안건별 섹션 → 결정 사항 → 미결 사항 → 액션 아이템 → 향후 일정 → 용어 확인 → 정리 노트. |
+| MM-7 | 정리 노트 gets the hardest scan | The writer's analysis is the only free-prose block, so the 11 patterns actually live there. Lead with the conclusion, match the body's 종결, no bold. |
+
+### MM-2 example
+
+| Before | After |
+|--------|-------|
+| 참석자들은 '사번 부여'라는 표현이 특정 부서에 국한될 수 있다는 점에 동의하고, 더 포괄적인 '에이전트의 정의'로 용어를 변경하기로 합의했습니다. | '사번 부여'는 특정 부서 일로 읽힐 수 있음 → 「에이전트의 정의」로 용어 변경 합의 |
+
+### Output
+
+In 회의록 mode the per-pattern report is skipped unless you pass `--check`. You get the full re-formatted minutes as a `.md` file, followed by a 3-5 line change summary: what was restructured, what was left untouched (quotes, numbers), and which `[확인]` items need the author's eyes.
+
+---
+
 ## Installation
 
 ### Claude Code (recommended)
@@ -161,6 +197,10 @@ your-project/
 # Natural language triggers also work
 > 이거 AI가 쓴 것 같아. 교정해줘
 > 이 글에서 AI체 좀 빼줘
+
+# Meeting minutes mode - applies MM-1 ~ MM-7
+> 회의록 교정: [paste summarizer output]
+> 요약기 출력 정리해줘
 ```
 
 ### Trigger keywords
@@ -168,6 +208,7 @@ your-project/
 The skill auto-activates on these keywords:
 - `deslop`, `anti-slop`, `AI 글 교정`, `AI체 교정`, `슬롭 제거`
 - `이거 AI가 쓴 것 같아`, `AI 냄새 나`, `로봇 같아`
+- `회의록 교정`, `회의록 deslop`, `요약기 출력 정리해줘` (activates the Meeting Minutes Profile)
 
 ---
 

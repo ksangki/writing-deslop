@@ -1,6 +1,6 @@
 ---
 name: writing-deslop
-description: Detect and fix 11 AI writing slop patterns in Korean/English prose
+description: Detect and fix 11 AI writing slop patterns in Korean/English prose, plus a meeting-minutes (회의록) profile for STT/summarizer output
 ---
 
 # AI Writing Deslop
@@ -21,6 +21,7 @@ These patterns originate from a viral Reddit r/ChatGPT post documenting writing 
 When the user says any of:
 - "deslop", "anti-slop", "AI 글 교정", "AI체 교정", "슬롭 제거"
 - "이거 AI가 쓴 것 같아", "AI 냄새 나", "로봇 같아"
+- "회의록 교정", "회의록 deslop", "요약기 출력 정리해줘" → apply the **Meeting Minutes Profile** below in addition to the 11 patterns
 - Or when reviewing any generated prose before publishing
 
 ## The 11 Patterns
@@ -457,6 +458,63 @@ Found: N patterns in M passages
 Summary: Rewrote M passages across N pattern types.
 ```
 
+---
+
+## Meeting Minutes Profile (회의록 프로파일)
+
+The 11 patterns rarely fire on meeting minutes (개조식 bullets, tables), but STT transcripts run through a summarizer produce a different kind of slop. Apply this profile whenever the input is a 회의록, 회의 요약, 녹취 정리, or summarizer output (signals: "Speaker N" labels, "Key Decisions / Action Items / Open Questions" template headers, "~했습니다/~되었습니다" on every sentence).
+
+### What NOT to touch
+
+- **Quoted speech is evidence, not slop.** "X가 아니라 Y다", "모두가 X라고 하지만" etc. inside a participant's actual remark (quoted or clearly attributed) stays as-is. Pattern 2/5/9 apply to the *writer's* voice, not the *speaker's*.
+- **Bullets and tables are not Pattern 4.** 개조식 is the correct register for minutes.
+- **Numbers, IDs, `[확인]` markers, dates** — never paraphrase away.
+
+### MM-1. Speaker labels → organization/role
+
+Summarizer output attributes by "Speaker 1/3/5". Replace with the organization or role (정책 측 / 플랫폼 측 / 에이전트 OS 측 / 회의 주재자 / 2-4 과제 측). If the mapping is uncertain, keep the role guess and append `[확인]`; list the Speaker→role mapping in the 용어 확인 table. Never invent a real name.
+
+### MM-2. Reporting-verb tail
+
+Every sentence ending in 강조했습니다 / 공유되었습니다 / 정리되었습니다 / 지적했습니다 / ~하기로 했습니다 / 판단하여 추후 논의하기로 했습니다 is summarizer filler. Convert to 개조식: drop the reporting verb, keep the content, end with a noun or 명사형 (~함 / ~필요 / ~합의 / ~미결).
+
+**Before:** 참석자들은 '사번 부여'라는 표현이 특정 부서에 국한될 수 있다는 점에 동의하고, 더 포괄적인 '에이전트의 정의'로 용어를 변경하기로 합의했습니다.
+**After:** '사번 부여'는 특정 부서 일로 읽힐 수 있음 → 「에이전트의 정의」로 용어 변경 합의
+
+### MM-3. Rationale boilerplate
+
+"(근거: … 때문입니다)" appended to every decision is a template artifact. Move decisions into a table with a short 비고 column; drop the rationale if the body already states it.
+
+### MM-4. Emphasis inflation
+
+Bold on every other phrase (or bold used as pseudo-headers) is the minutes equivalent of Pattern 4 — fake drama via formatting. Remove body bold entirely; promote bold-only lines that act as section labels to `###` headers. Keep 「」 for defined terms.
+
+### MM-5. STT mis-recognition
+
+Unfamiliar proper nouns in summarizer output are often mis-heard (사번제→사본/사법, 하이밸류→하이브리드, 폴라리스→플라디스, 토큰→ROT). Do not silently "correct" them. Mark inline with `[확인]` and collect them in a 「용어 · 원문 확인 필요」 table (표기 / 추정 / 사유). Also flag numbers that differ between transcript versions.
+
+### MM-6. Fixed skeleton
+
+Normalize to this order so minutes across meetings line up:
+
+1. 회의 성격 (2–3 lines: what, why, duration/date)
+2. `[!warning] 정리 기준` — attribution rule, `[확인]` convention, date if inferred
+3. Numbered topic sections, each 개조식; sub-blocks as `###`
+4. 결정 사항 — table (# / 결정 / 비고)
+5. 미결 사항 — table (# / 항목 / 내용)
+6. 액션 아이템 — table (담당 / 내용 / 기한)
+7. 향후 일정 or 기타 공유
+8. 용어 · 원문 확인 필요 — table
+9. `[!info] 정리 노트` — writer's own analysis, clearly labeled as not-a-remark
+
+### MM-7. 정리 노트 (writer's analysis) is where the 11 patterns actually live
+
+This is the only free-prose block, so scan it hardest. Typical hits: Pattern 7 ("그런데 이번 회의에서 사실상 답이 나왔습니다" — setup→reveal), Pattern 8 ("~이 정확한 진단입니다" — evaluative flourish), Pattern 2/5 in the writer's framing. Rewrite to lead with the conclusion, in the same 개조식-compatible 종결 (~다) as the body, no bold.
+
+### Output for 회의록 mode
+
+Skip the per-pattern report unless the user asks for `--check`. Deliver the full re-formatted minutes as a `.md` file, then a 3–5 line change summary: what was restructured, what was left untouched (quotes, numbers), and which `[확인]` items need the author's eyes.
+
 ## Rewrite Principles
 
 1. **Preserve the insight** - The original author had a real point. Keep it. Remove only the AI packaging.
@@ -470,6 +528,7 @@ Summary: Rewrote M passages across N pattern types.
 
 - **Intentional rhetorical questions** (e.g., essay openers in academic writing): Leave alone if genuinely rhetorical and not followed by a reveal pattern.
 - **Lists**: Numbered/bulleted lists are not Pattern 4 even if each item is short.
-- **Dialogue/quotes**: Patterns inside quoted speech from real people should be flagged but not rewritten.
+- **Dialogue/quotes**: Patterns inside quoted speech from real people should be flagged but not rewritten. In meeting minutes, do not even flag them — see Meeting Minutes Profile.
+- **Meeting minutes / summarizer output**: 개조식 bullets, tables, and reporting structure are the correct register. Apply the Meeting Minutes Profile (MM-1 … MM-7) instead of forcing the 11 patterns onto every bullet.
 - **Headlines/titles**: Patterns in headlines may be acceptable for engagement. Flag but let the author decide.
 - **Mixed patterns**: A single passage can trigger multiple patterns. Report all, but combine into one rewrite.

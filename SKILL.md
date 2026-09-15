@@ -487,11 +487,49 @@ Every sentence ending in 강조했습니다 / 공유되었습니다 / 정리되�
 
 ### MM-4. Emphasis inflation
 
-Bold on every other phrase (or bold used as pseudo-headers) is the minutes equivalent of Pattern 4 — fake drama via formatting. Remove body bold entirely; promote bold-only lines that act as section labels to `###` headers. Keep 「」 for defined terms.
+Bold on every other phrase (or bold used as pseudo-headers) is the minutes equivalent of Pattern 4 — fake drama via formatting. When everything is bold, nothing is.
+
+**Rule: at most one bold per paragraph.** Keep the phrase that carries the paragraph's point — the decision reached, the number that changes a judgment, or the term being defined. Everything else goes plain. A paragraph whose point is already clear from its first clause needs no bold at all.
+
+Do not strip bold wholesale. Stripping everything flattens the text and forces the reader to re-derive the point from scratch; the fix is to choose, not to delete.
+
+- Bold-only lines acting as section labels → promote to `###` headers
+- Tables and 개조식 bullets keep their bold — that is the correct register, not prose
+- Keep 「」 for defined terms, and do not bold them on top of the brackets
+- Quoted remarks: bold at most the clause the speaker actually leaned on
+- **Parallel items get no bold at all.** Two or more bolds that are enumerated or
+  balanced options (① / ②, A vs B, 채찍 vs 당근) → drop every one of them. Bolding
+  one side of a balanced pair invents weight the text does not have, and bolding both
+  is the inflation this rule exists to stop. The enumeration itself already carries
+  the structure.
+
+**Before** (5 bolds in one paragraph)
+```
+제기된 딜레마: **자체 모델을 쓰는 조직**은 좋은 성과를 내면서도 **집계에서 빠짐**.
+**열심히 했는데 빠져버리는 구조**. 따라서 **목적이 비용 타이트닝인지 퍼포먼스 체크인지**를
+정해야 하며, 실제로는 **둘 다** 봐야 함.
+```
+
+**After** (1)
+```
+제기된 딜레마: 자체 모델을 쓰는 조직은 좋은 성과를 내면서도 집계에서 빠짐.
+따라서 **목적이 비용 타이트닝인지 퍼포먼스 체크인지**를 정해야 하며, 실제로는 둘 다 봐야 함.
+```
+
+The kept bold is the one that states what must be decided. The rest were description already carried by the sentence.
 
 ### MM-5. STT mis-recognition
 
 Unfamiliar proper nouns in summarizer output are often mis-heard (사번제→사본/사법, 하이밸류→하이브리드, 폴라리스→플라디스, 토큰→ROT). Do not silently "correct" them. Mark inline with `[확인]` and collect them in a 「용어 · 원문 확인 필요」 table (표기 / 추정 / 사유). Also flag numbers that differ between transcript versions.
+
+**The marker and the table are one unit.** An inline `[확인]` with no row to land on is
+worse than no marker at all — it signals doubt without saying about what. So:
+
+- Trimming the minutes? If the 「용어 · 원문 확인 필요」 table goes, every inline `[확인]`
+  goes with it — either resolved into the sentence or deleted.
+- Keeping only some rows? Keep exactly the rows the surviving markers point to. Two live
+  markers need a two-row table, not the full original list.
+- Before publishing, count them: inline `[확인]` occurrences must equal table rows.
 
 ### MM-6. Fixed skeleton
 

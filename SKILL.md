@@ -472,14 +472,14 @@ The 11 patterns rarely fire on meeting minutes (개조식 bullets, tables), but 
 
 ### MM-1. Speaker labels → organization/role
 
-Summarizer output attributes by "Speaker 1/3/5". Replace with the organization or role (정책 측 / 플랫폼 측 / 에이전트 OS 측 / 회의 주재자 / 2-4 과제 측). If the mapping is uncertain, keep the role guess and append `[확인]`; list the Speaker→role mapping in the 용어 확인 table. Never invent a real name.
+Summarizer output attributes by "Speaker 1/3/5". Replace with the organization or role (정책 측 / 플랫폼 측 / 인프라 측 / 회의 주재자 / ○○ 과제 측). If the mapping is uncertain, keep the role guess and append `[확인]`; list the Speaker→role mapping in the 용어 확인 table. Never invent a real name.
 
 ### MM-2. Reporting-verb tail
 
 Every sentence ending in 강조했습니다 / 공유되었습니다 / 정리되었습니다 / 지적했습니다 / ~하기로 했습니다 / 판단하여 추후 논의하기로 했습니다 is summarizer filler. Convert to 개조식: drop the reporting verb, keep the content, end with a noun or 명사형 (~함 / ~필요 / ~합의 / ~미결).
 
-**Before:** 참석자들은 '사번 부여'라는 표현이 특정 부서에 국한될 수 있다는 점에 동의하고, 더 포괄적인 '에이전트의 정의'로 용어를 변경하기로 합의했습니다.
-**After:** '사번 부여'는 특정 부서 일로 읽힐 수 있음 → 「에이전트의 정의」로 용어 변경 합의
+**Before:** 참석자들은 '전면 도입'이라는 표현이 특정 조직에 국한될 수 있다는 점에 동의하고, 더 포괄적인 '단계적 확대'로 용어를 변경하기로 합의했습니다.
+**After:** '전면 도입'은 특정 조직 일로 읽힐 수 있음 → 「단계적 확대」로 용어 변경 합의
 
 ### MM-3. Rationale boilerplate
 
@@ -496,7 +496,7 @@ Rule of thumb: at most one bold phrase per topic section. Promote bold-only labe
 
 ### MM-5. STT mis-recognition
 
-Unfamiliar proper nouns in summarizer output are often mis-heard (사번제→사본/사법, 하이밸류→하이브리드, 폴라리스→플라디스, 토큰→ROT). Do not silently "correct" them. Mark inline with `[확인]` and collect them in a 「용어 · 원문 확인 필요」 table (표기 / 추정 / 사유). Also flag numbers that differ between transcript versions.
+Unfamiliar proper nouns in summarizer output are often mis-heard — 사내 제도명이 비슷한 발음의 일반어로, 플랫폼 이름이 다른 단어로, 영문 약어의 한 글자가 빠지는 식이다. Do not silently "correct" them. Mark inline with `[확인]` and collect them in a 「용어 · 원문 확인 필요」 table (표기 / 추정 / 사유). Also flag numbers that differ between transcript versions.
 
 ### MM-6. Fixed skeleton
 

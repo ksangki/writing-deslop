@@ -145,7 +145,7 @@ The 11 patterns rarely fire on meeting minutes - 개조식 bullets and tables ar
 | MM-2 | Reporting-verb tail | Drop 강조했습니다 / 공유되었습니다 / ~하기로 했습니다 filler and convert to 개조식 (~함 / ~필요 / ~합의 / ~미결). |
 | MM-3 | Rationale boilerplate | Move "(근거: ...)" decisions into a table with a short 비고 column; drop the rationale if the body already states it. |
 | MM-4 | Emphasis inflation | Strip body bold by default. Keep it only where it carries information the reader would miss (a reversed decision, a deadline/owner inside a long bullet, a meaning-changing `[확인]`), at most one per topic section. Promote bold-only pseudo-headers to `###`. Keep 「」 for defined terms. |
-| MM-5 | STT mis-recognition | Do not silently "correct" mis-heard proper nouns (사번제→사본, 하이밸류→하이브리드 ...). Mark with `[확인]` and collect in a 「용어 · 원문 확인 필요」 table. |
+| MM-5 | STT mis-recognition | Do not silently "correct" mis-heard proper nouns (제도명 · 플랫폼명 · 영문 약어가 비슷한 발음으로 바뀜). Mark with `[확인]` and collect in a 「용어 · 원문 확인 필요」 table. |
 | MM-6 | Fixed skeleton | Normalize to a fixed order: 회의 성격 → 정리 기준 → 안건별 섹션 → 결정 사항 → 미결 사항 → 액션 아이템 → 향후 일정 → 용어 확인 → 정리 노트. |
 | MM-7 | 정리 노트 gets the hardest scan | The writer's analysis is the only free-prose block, so the 11 patterns actually live there. Lead with the conclusion, match the body's 종결, bold only under the MM-4 exceptions. |
 
@@ -153,7 +153,7 @@ The 11 patterns rarely fire on meeting minutes - 개조식 bullets and tables ar
 
 | Before | After |
 |--------|-------|
-| 참석자들은 '사번 부여'라는 표현이 특정 부서에 국한될 수 있다는 점에 동의하고, 더 포괄적인 '에이전트의 정의'로 용어를 변경하기로 합의했습니다. | '사번 부여'는 특정 부서 일로 읽힐 수 있음 → 「에이전트의 정의」로 용어 변경 합의 |
+| 참석자들은 '전면 도입'이라는 표현이 특정 조직에 국한될 수 있다는 점에 동의하고, 더 포괄적인 '단계적 확대'로 용어를 변경하기로 합의했습니다. | '전면 도입'은 특정 조직 일로 읽힐 수 있음 → 「단계적 확대」로 용어 변경 합의 |
 
 ### Output
 

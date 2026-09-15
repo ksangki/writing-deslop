@@ -487,49 +487,16 @@ Every sentence ending in 강조했습니다 / 공유되었습니다 / 정리되�
 
 ### MM-4. Emphasis inflation
 
-Bold on every other phrase (or bold used as pseudo-headers) is the minutes equivalent of Pattern 4 — fake drama via formatting. When everything is bold, nothing is.
+Bold on every other phrase, or bold used as pseudo-headers, is the minutes equivalent of Pattern 4 — fake drama via formatting. Default: strip body bold. Keep bold only where it carries information the reader would otherwise miss:
+- a decision that reverses a prior decision
+- a deadline or owner inside a long bullet (not in tables — the column already does it)
+- a `[확인]` item whose mis-recognition changes the meaning
 
-**Rule: at most one bold per paragraph.** Keep the phrase that carries the paragraph's point — the decision reached, the number that changes a judgment, or the term being defined. Everything else goes plain. A paragraph whose point is already clear from its first clause needs no bold at all.
-
-Do not strip bold wholesale. Stripping everything flattens the text and forces the reader to re-derive the point from scratch; the fix is to choose, not to delete.
-
-- Bold-only lines acting as section labels → promote to `###` headers
-- Tables and 개조식 bullets keep their bold — that is the correct register, not prose
-- Keep 「」 for defined terms, and do not bold them on top of the brackets
-- Quoted remarks: bold at most the clause the speaker actually leaned on
-- **Parallel items get no bold at all.** Two or more bolds that are enumerated or
-  balanced options (① / ②, A vs B, 채찍 vs 당근) → drop every one of them. Bolding
-  one side of a balanced pair invents weight the text does not have, and bolding both
-  is the inflation this rule exists to stop. The enumeration itself already carries
-  the structure.
-
-**Before** (5 bolds in one paragraph)
-```
-제기된 딜레마: **자체 모델을 쓰는 조직**은 좋은 성과를 내면서도 **집계에서 빠짐**.
-**열심히 했는데 빠져버리는 구조**. 따라서 **목적이 비용 타이트닝인지 퍼포먼스 체크인지**를
-정해야 하며, 실제로는 **둘 다** 봐야 함.
-```
-
-**After** (1)
-```
-제기된 딜레마: 자체 모델을 쓰는 조직은 좋은 성과를 내면서도 집계에서 빠짐.
-따라서 **목적이 비용 타이트닝인지 퍼포먼스 체크인지**를 정해야 하며, 실제로는 둘 다 봐야 함.
-```
-
-The kept bold is the one that states what must be decided. The rest were description already carried by the sentence.
+Rule of thumb: at most one bold phrase per topic section. Promote bold-only label lines that act as section labels to `###` headers; keep 「」 for defined terms.
 
 ### MM-5. STT mis-recognition
 
 Unfamiliar proper nouns in summarizer output are often mis-heard (사번제→사본/사법, 하이밸류→하이브리드, 폴라리스→플라디스, 토큰→ROT). Do not silently "correct" them. Mark inline with `[확인]` and collect them in a 「용어 · 원문 확인 필요」 table (표기 / 추정 / 사유). Also flag numbers that differ between transcript versions.
-
-**The marker and the table are one unit.** An inline `[확인]` with no row to land on is
-worse than no marker at all — it signals doubt without saying about what. So:
-
-- Trimming the minutes? If the 「용어 · 원문 확인 필요」 table goes, every inline `[확인]`
-  goes with it — either resolved into the sentence or deleted.
-- Keeping only some rows? Keep exactly the rows the surviving markers point to. Two live
-  markers need a two-row table, not the full original list.
-- Before publishing, count them: inline `[확인]` occurrences must equal table rows.
 
 ### MM-6. Fixed skeleton
 
@@ -547,7 +514,7 @@ Normalize to this order so minutes across meetings line up:
 
 ### MM-7. 정리 노트 (writer's analysis) is where the 11 patterns actually live
 
-This is the only free-prose block, so scan it hardest. Typical hits: Pattern 7 ("그런데 이번 회의에서 사실상 답이 나왔습니다" — setup→reveal), Pattern 8 ("~이 정확한 진단입니다" — evaluative flourish), Pattern 2/5 in the writer's framing. Rewrite to lead with the conclusion, in the same 개조식-compatible 종결 (~다) as the body, no bold.
+This is the only free-prose block, so scan it hardest. Typical hits: Pattern 7 ("그런데 이번 회의에서 사실상 답이 나왔습니다" — setup→reveal), Pattern 8 ("~이 정확한 진단입니다" — evaluative flourish), Pattern 2/5 in the writer's framing. Rewrite to lead with the conclusion, in the same 개조식-compatible 종결 (~다) as the body; bold only under the MM-4 exceptions.
 
 ### Output for 회의록 mode
 

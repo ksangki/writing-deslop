@@ -487,7 +487,12 @@ Every sentence ending in 강조했습니다 / 공유되었습니다 / 정리되�
 
 ### MM-4. Emphasis inflation
 
-Bold on every other phrase (or bold used as pseudo-headers) is the minutes equivalent of Pattern 4 — fake drama via formatting. Remove body bold entirely; promote bold-only lines that act as section labels to `###` headers. Keep 「」 for defined terms.
+Bold on every other phrase, or bold used as pseudo-headers, is the minutes equivalent of Pattern 4 — fake drama via formatting. Default: strip body bold. Keep bold only where it carries information the reader would otherwise miss:
+- a decision that reverses a prior decision
+- a deadline or owner inside a long bullet (not in tables — the column already does it)
+- a `[확인]` item whose mis-recognition changes the meaning
+
+Rule of thumb: at most one bold phrase per topic section. Promote bold-only label lines that act as section labels to `###` headers; keep 「」 for defined terms.
 
 ### MM-5. STT mis-recognition
 
@@ -509,7 +514,7 @@ Normalize to this order so minutes across meetings line up:
 
 ### MM-7. 정리 노트 (writer's analysis) is where the 11 patterns actually live
 
-This is the only free-prose block, so scan it hardest. Typical hits: Pattern 7 ("그런데 이번 회의에서 사실상 답이 나왔습니다" — setup→reveal), Pattern 8 ("~이 정확한 진단입니다" — evaluative flourish), Pattern 2/5 in the writer's framing. Rewrite to lead with the conclusion, in the same 개조식-compatible 종결 (~다) as the body, no bold.
+This is the only free-prose block, so scan it hardest. Typical hits: Pattern 7 ("그런데 이번 회의에서 사실상 답이 나왔습니다" — setup→reveal), Pattern 8 ("~이 정확한 진단입니다" — evaluative flourish), Pattern 2/5 in the writer's framing. Rewrite to lead with the conclusion, in the same 개조식-compatible 종결 (~다) as the body; bold only under the MM-4 exceptions.
 
 ### Output for 회의록 mode
 

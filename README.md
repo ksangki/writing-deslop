@@ -16,6 +16,10 @@ This skill catches those patterns and suggests rewrites that keep the original i
 
 Inspired by [this Reddit post](https://www.reddit.com/r/ChatGPT/comments/1kqe0ph/writing_formats_ruined_by_chatgpt/) documenting writing formats ruined by ChatGPT.
 
+> **회의록·녹취 정리라면 11패턴보다 [Meeting Minutes Profile](#meeting-minutes-profile-회의록-프로파일)을 먼저 보십시오.**
+> 실제로 걸리는 것은 대부분 그쪽입니다. 한 건의 실사용에서 산문 183블록 기준 11패턴은 1건(그마저 발언 인용이라 대상 제외),
+> MM 규칙은 5건이 나왔습니다.
+
 ---
 
 ## The 11 Patterns
@@ -140,10 +144,10 @@ The 11 patterns rarely fire on meeting minutes - 개조식 bullets and tables ar
 | MM-1 | Speaker labels → organization/role | Replace "Speaker 1/3/5" with the organization or role (정책 측 / 플랫폼 측 / 회의 주재자 ...). Uncertain mappings get `[확인]`. Never invent a real name. |
 | MM-2 | Reporting-verb tail | Drop 강조했습니다 / 공유되었습니다 / ~하기로 했습니다 filler and convert to 개조식 (~함 / ~필요 / ~합의 / ~미결). |
 | MM-3 | Rationale boilerplate | Move "(근거: ...)" decisions into a table with a short 비고 column; drop the rationale if the body already states it. |
-| MM-4 | Emphasis inflation | Remove body bold entirely; promote bold-only pseudo-headers to `###`. Keep 「」 for defined terms. |
+| MM-4 | Emphasis inflation | Strip body bold by default. Keep it only where it carries information the reader would miss (a reversed decision, a deadline/owner inside a long bullet, a meaning-changing `[확인]`), at most one per topic section. Promote bold-only pseudo-headers to `###`. Keep 「」 for defined terms. |
 | MM-5 | STT mis-recognition | Do not silently "correct" mis-heard proper nouns (제도명 · 플랫폼명 · 영문 약어가 비슷한 발음으로 바뀜). Mark with `[확인]` and collect in a 「용어 · 원문 확인 필요」 table. |
 | MM-6 | Fixed skeleton | Normalize to a fixed order: 회의 성격 → 정리 기준 → 안건별 섹션 → 결정 사항 → 미결 사항 → 액션 아이템 → 향후 일정 → 용어 확인 → 정리 노트. |
-| MM-7 | 정리 노트 gets the hardest scan | The writer's analysis is the only free-prose block, so the 11 patterns actually live there. Lead with the conclusion, match the body's 종결, no bold. |
+| MM-7 | 정리 노트 gets the hardest scan | The writer's analysis is the only free-prose block, so the 11 patterns actually live there. Lead with the conclusion, match the body's 종결, bold only under the MM-4 exceptions. |
 
 ### MM-2 example
 

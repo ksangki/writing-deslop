@@ -144,10 +144,10 @@ The 11 patterns rarely fire on meeting minutes - 개조식 bullets and tables ar
 | MM-1 | Speaker labels → organization/role | Replace "Speaker 1/3/5" with the organization or role (정책 측 / 플랫폼 측 / 회의 주재자 ...). Uncertain mappings get `[확인]`. Never invent a real name. |
 | MM-2 | Reporting-verb tail | Drop 강조했습니다 / 공유되었습니다 / ~하기로 했습니다 filler and convert to 개조식 (~함 / ~필요 / ~합의 / ~미결). |
 | MM-3 | Rationale boilerplate | Move "(근거: ...)" decisions into a table with a short 비고 column; drop the rationale if the body already states it. |
-| MM-4 | Emphasis inflation | **At most one bold per paragraph** — keep the phrase carrying the point, plain the rest. Do not strip wholesale; the fix is to choose, not delete. Parallel items (① / ②, A vs B) get no bold at all. Promote bold-only pseudo-headers to `###`. |
-| MM-5 | STT mis-recognition | Do not silently "correct" mis-heard proper nouns (사번제→사본, 하이밸류→하이브리드 ...). Mark with `[확인]` and collect in a 「용어 · 원문 확인 필요」 table. **The marker and the table are one unit** — inline `[확인]` count must equal table rows. |
+| MM-4 | Emphasis inflation | Strip body bold by default. Keep it only where it carries information the reader would miss (a reversed decision, a deadline/owner inside a long bullet, a meaning-changing `[확인]`), at most one per topic section. Promote bold-only pseudo-headers to `###`. Keep 「」 for defined terms. |
+| MM-5 | STT mis-recognition | Do not silently "correct" mis-heard proper nouns (사번제→사본, 하이밸류→하이브리드 ...). Mark with `[확인]` and collect in a 「용어 · 원문 확인 필요」 table. |
 | MM-6 | Fixed skeleton | Normalize to a fixed order: 회의 성격 → 정리 기준 → 안건별 섹션 → 결정 사항 → 미결 사항 → 액션 아이템 → 향후 일정 → 용어 확인 → 정리 노트. |
-| MM-7 | 정리 노트 gets the hardest scan | The writer's analysis is the only free-prose block, so the 11 patterns actually live there. Lead with the conclusion, match the body's 종결, no bold. |
+| MM-7 | 정리 노트 gets the hardest scan | The writer's analysis is the only free-prose block, so the 11 patterns actually live there. Lead with the conclusion, match the body's 종결, bold only under the MM-4 exceptions. |
 
 ### MM-2 example
 
